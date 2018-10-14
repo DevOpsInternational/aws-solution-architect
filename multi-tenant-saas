@@ -59,3 +59,5 @@ Tenant isolation
 	⁃	Binding customer roles to users
 	⁃	User pool ID
 	⁃	Application ID
+	- 	communciation across components ( in transit)
+	- 	Rest storage
