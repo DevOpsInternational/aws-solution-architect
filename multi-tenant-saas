@@ -1,0 +1,61 @@
+Multi Tenant Saas security and infra- Good practices:
+
+Using AWS
+	⁃	Client on S3 bucket
+	⁃	Public API on API gateway
+	⁃	Microservices on ECS
+	⁃	Tenant registration
+	⁃	User management
+	⁃	Auth manager
+	⁃	Tenant identity on Cognito
+
+Application Registration ( onboarding users)
+	⁃	Tenant registration service on ECS microservice
+	⁃	User creation
+	⁃	Identity provider on Cognito
+	⁃	User pool
+	⁃	Identity pool
+	⁃	Admin user
+	⁃	Custom claims
+	⁃	IAM policies (identity and access management)
+	⁃	Admin roles and policies
+	⁃	Tenant roles and policies
+	⁃	Mapping of User with UserPool
+	⁃	Tenant creation
+	⁃	Tenant ID
+	⁃	Plan
+	⁃	Status
+	⁃	Usage and billing
+	⁃	New tenant queue
+	⁃	Asynchronous provisioning
+	⁃	Limit coupling to bling availability
+
+Authentication
+	⁃	Web app
+	⁃	Auth manager
+	⁃	User manager (look up UserLoop)
+	⁃	Authenticate on Cognito (open-ID JWT token)
+	⁃	JWT token as both User identity and Tenant identity
+
+Invoking application services
+	⁃	Get / post request
+	⁃	Authorization Bearer <token> JWT token, encrypted (service to service communication also uses the same token)
+	⁃	Token manager
+	⁃	getTenantId(req) has Authorization Bearer <jwt token>
+	⁃	Returns TenantID
+	⁃	getCredentialsFromToken(req)
+	⁃	Returns Credentials
+	⁃	DynamoDB (access using TenantID and Credentials
+
+API gateway (custom authoriser)
+	⁃	API gateway
+	⁃	Lambda validator function, using token to verify if the method is allowed
+
+Data partitioning and encapsulation
+	⁃	Using the credentials accessing the tenant specific data
+
+Tenant isolation
+	⁃	Using IAM policies
+	⁃	Binding customer roles to users
+	⁃	User pool ID
+	⁃	Application ID
