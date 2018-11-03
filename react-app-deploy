@@ -1,0 +1,53 @@
+## Deploy React web-app to AWS : -
+
+1.	On AWS console, select IAM service and click on "Create IAM roles"
+    - Add user
+    - programmatic access
+    - attach policy – full aws access for s3
+2.	create access key 
+3.	install aws cli 
+    - https://docs.aws.amazon.com/cli/latest/userguide/cli-install-macos.html 
+4.	On AWS console, select S3 service and create s3 bucket" with the below parameters
+    a.	name
+    b.	region
+    c.	update permission
+    d.	policy type ( s3 policy)
+    e.	effect – allow
+    f.	principal * ( all) 
+    g.	service – aws s3 service
+    h.	add statement
+		    {
+      "Sid": "Stmt1511261285825",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::my-app/*",
+      "Principal": "*"
+    }
+  ]
+}
+Update resource to your app name ( where "my-app" is the name of your app)
+
+   i. Copy paste it to your bucket policy
+
+5.	Now under "Properties" – select "static hosting"
+6.	name of your document ( index.html)
+7.	update package.json
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "deploy": "aws s3 sync build/ s3://my-app",
+  "test": "react-scripts test --env=jsdom",
+  "eject": "react-scripts eject"
+}
+
+Note - check the name of the folder in your code directory where your build files are saved : sometime its "build" and at times it is "dist"
+ - based n the name of the folder of your build files; update the above deoply steps' path ("deploy": "aws s3 sync build OR dist/ s3://my-app",)
+8.	npm run build
+9.	npm run deploy
+10. the cli will prompt for your AWS "username" & "password". 
+11. select the path of your s3 bucket name displayed on aws console and paste it on a browser to view your app
+
+
+
